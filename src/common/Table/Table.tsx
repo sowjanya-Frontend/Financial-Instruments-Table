@@ -37,8 +37,8 @@ function Table<T>({
   if (!data || data.length === 0) return <p>No data to display.</p>;
 
   return (
-    <table className="table table-bodered table-stripped">
-      <thead className="table-light">
+    <table className="table table-hover table-bordered">
+      <thead>
         <tr>
           {columns.map((column) => (
             <th key={String(column.field)}>{column.header}</th>
@@ -48,14 +48,19 @@ function Table<T>({
       <tbody>
         {data.map((row, rowIndex) => (
           <tr key={rowIndex} style={getRowStyle ? getRowStyle(row) : undefined}>
-            {columns.map((column) => (
-              <td
-                key={String(column.field)}
-                style={getCellStyle ? getCellStyle(row, column) : undefined}
-              >
-                {String(row[column.field])}
-              </td>
-            ))}
+            {columns.map((column) => {
+              // Merge row background and cell style
+              const rowStyle = getRowStyle ? getRowStyle(row) : {};
+              const cellStyle = getCellStyle ? getCellStyle(row, column) : {};
+              return (
+                <td
+                  key={String(column.field)}
+                  style={{ ...rowStyle, ...cellStyle }}
+                >
+                  {row[column.field] != null ? String(row[column.field]) : ""}
+                </td>
+              );
+            })}
           </tr>
         ))}
       </tbody>
