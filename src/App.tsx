@@ -1,5 +1,11 @@
+import FinancialTable from "./components/FinancialTable/FinancialTable";
+
 function App() {
-  return <div>Financial Instruments Table</div>;
+  return (
+    <div className="container">
+      <FinancialTable />
+    </div>
+  );
 }
 
 export default App;

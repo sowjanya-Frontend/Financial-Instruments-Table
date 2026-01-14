@@ -1,0 +1,15 @@
+.tableWrapper {
+  height: 540px; /* total area for table + header */
+  display: flex;
+  flex-direction: column;
+}
+
+.tableContainer {
+  flex: 1; /* scrollable tbody takes remaining space */
+  overflow-y: auto;
+}
+
+.tableContainer table thead th {
+  position: sticky;
+  top: 0;
+}
