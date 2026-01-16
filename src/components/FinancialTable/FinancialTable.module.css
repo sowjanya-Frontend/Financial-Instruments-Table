@@ -9,11 +9,3 @@
   overflow-y: auto;
   border: 1px solid #dee2e6;
 }
-
-.tableContainer table thead th {
-  position: sticky;
-  top: 0;
-  border: 1px solid #dee2e6;
-  background-color: #767472;
-  color: #ffffff;
-}

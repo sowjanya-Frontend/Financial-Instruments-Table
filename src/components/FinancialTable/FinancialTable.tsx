@@ -1,9 +1,14 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import Table, { type Column } from "../../common/Table/Table";
 import instrumentsData from "../../data/instruments.json";
-import type { FinancialInstrument } from "../../types/types";
+import type {
+  FinancialInstrument,
+  SortKey,
+  SortOrder,
+} from "../../types/types";
 import styles from "./FinancialTable.module.css";
 import { AssetClassColors, PriceColors } from "../../constants/colors";
+import { sortInstumentsBySortKey } from "../../utils/sorting";
 
 /**
  * Financial Table component
@@ -16,6 +21,15 @@ function FinancialTable() {
       { header: "Asset Class", field: "assetClass" },
     ],
     []
+  );
+
+  const [sortKey, setSortKey] = useState<SortKey>("assetClass");
+
+  const [sortOrder, setSortOrder] = useState<SortOrder>("asc"); // default ascending
+
+  const sortedData = useMemo(
+    () => sortInstumentsBySortKey(instrumentsData, sortKey, sortOrder),
+    [sortKey, sortOrder]
   );
 
   // Row background based on Asset Class
@@ -42,10 +56,22 @@ function FinancialTable() {
         <h5 className="text-center m-2">Financial Instruments Table</h5>
         <div className={styles.tableContainer}>
           <Table
-            data={instrumentsData}
+            data={sortedData}
             columns={tableColumns}
             getRowStyle={getRowStyle}
             getCellStyle={getCellStyle}
+            sortKey={sortKey}
+            onHeaderClick={(column) => {
+              const columnKey = column.field as SortKey;
+              if (sortKey === columnKey) {
+                // toggle direction
+                setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+              } else {
+                setSortKey(columnKey);
+                setSortOrder("asc");
+              }
+            }}
+            sortOrder={sortOrder}
           />
         </div>
       </div>

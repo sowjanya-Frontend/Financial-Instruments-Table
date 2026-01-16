@@ -4,3 +4,6 @@ export interface FinancialInstrument {
   price: number;
   assetClass: string;
 }
+
+export type SortKey = "ticker" | "price" | "assetClass";
+export type SortOrder = "asc" | "desc";

@@ -1,4 +1,5 @@
 import type { CSSProperties, JSX } from "react";
+import tableStyles from "./Table.module.css";
 
 /**
  * Column configuration interface
@@ -22,6 +23,9 @@ interface TableProps<T> {
   columns: Column<T>[];
   getRowStyle?: (row: T) => CSSProperties;
   getCellStyle?: (row: T, column: Column<T>) => CSSProperties;
+  onHeaderClick?: (column: Column<T>) => void;
+  sortKey?: keyof T;
+  sortOrder?: "asc" | "desc";
 }
 
 /**
@@ -33,34 +37,45 @@ function Table<T>({
   columns,
   getRowStyle,
   getCellStyle,
+  onHeaderClick,
+  sortKey,
+  sortOrder,
 }: TableProps<T>): JSX.Element {
   if (!data || data.length === 0) return <p>No data to display.</p>;
 
   return (
-    <table className="table table-hover table-bordered">
+    <table className={tableStyles.table}>
       <thead>
         <tr>
           {columns.map((column) => (
-            <th key={String(column.field)}>{column.header}</th>
+            <th
+              className={`${tableStyles.th} ${
+                sortKey === column.field
+                  ? sortOrder === "asc"
+                    ? tableStyles["sorted-asc"]
+                    : tableStyles["sorted-desc"]
+                  : ""
+              }`}
+              key={String(column.field)}
+              onClick={() => onHeaderClick?.(column)}
+            >
+              {column.header}
+            </th>
           ))}
         </tr>
       </thead>
       <tbody>
         {data.map((row, rowIndex) => (
           <tr key={rowIndex} style={getRowStyle ? getRowStyle(row) : undefined}>
-            {columns.map((column) => {
-              // Merge row background and cell style
-              const rowStyle = getRowStyle ? getRowStyle(row) : {};
-              const cellStyle = getCellStyle ? getCellStyle(row, column) : {};
-              return (
-                <td
-                  key={String(column.field)}
-                  style={{ ...rowStyle, ...cellStyle }}
-                >
-                  {row[column.field] != null ? String(row[column.field]) : ""}
-                </td>
-              );
-            })}
+            {columns.map((column) => (
+              <td
+                className={tableStyles.td}
+                key={String(column.field)}
+                style={getCellStyle ? getCellStyle(row, column) : undefined}
+              >
+                {String(row[column.field])}
+              </td>
+            ))}
           </tr>
         ))}
       </tbody>
