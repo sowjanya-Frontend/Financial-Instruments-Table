@@ -1,73 +1,101 @@
-# React + TypeScript + Vite
+Financial Instruments Table
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React + TypeScript + Vite project that displays a table of financial instruments with sorting, row coloring, and dynamic styling.
 
-Currently, two official plugins are available:
+Features:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Dynamic table rendering of financial instruments.
 
-## React Compiler
+Columns: Ticker, Price, Asset Class.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Sorting by Ticker (A-Z/Z-A), Price (asc/desc), and Asset Class (custom order: Equities → Macro → Credit).
 
-## Expanding the ESLint configuration
+Row background color based on Asset Class.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Price cell coloring: blue if positive, red if negative.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Fully typed with TypeScript.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Reusable Table component.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Tech Stack:
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+React 19
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+TypeScript
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Vite
+
+Jest / Vitest for unit testing
+
+React Testing Library
+
+CSS Modules for styling
+
+Getting Started:
+
+Prerequisites:
+
+Node.js >= 18
+
+npm >= 9
+
+Installation:
+
+Clone the repository:
+git clone https://github.com/sowjanya-Frontend/Financial-Instruments-Table.git
+cd financial-instruments-table
+
+Install dependencies:
+npm install
+
+Running the App:
+
+Start the development server:
+npm run dev
+
+Open your browser at http://localhost:5173 [port number may change here please check]
+
+Building for Production:
+
+Build the app:
+npm run build
+
+Preview production build:
+npm run preview
+
+Testing:
+
+Run all tests:
+npm run test
+
+Run a specific test file:
+npx vitest run src/components/FinancialTable/FinancialTable.test.tsx
+
+Project Structure:
+
+src/
+
+components/FinancialTable/ Main table component
+
+common/Table/ Reusable generic Table component
+
+constants/colors.ts Color constants for Asset Class & Price
+
+data/instruments.json Mock financial instrument data
+
+types/types.ts Shared TypeScript types
+
+utils/sorting/ Sorting helper functions
+
+Notes:
+
+All styles are modular and reusable.
+
+Sorting logic is implemented in pure functions for testability.
+
+Unit tests cover Table component, FinancialTable component, sorting, cell colors, and row styles.
+
+Contact:
+Project developed by: Sowjanya Kandra
+Email: kandra.sowjanya@gmail.com

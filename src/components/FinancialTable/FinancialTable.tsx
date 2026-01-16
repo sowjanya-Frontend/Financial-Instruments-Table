@@ -8,7 +8,7 @@ import type {
 } from "../../types/types";
 import styles from "./FinancialTable.module.css";
 import { AssetClassColors, PriceColors } from "../../constants/colors";
-import { sortInstumentsBySortKey } from "../../utils/sorting";
+import { sortInstumentsBySortKey } from "../../utils/sorting/sorting";
 
 /**
  * Financial Table component
