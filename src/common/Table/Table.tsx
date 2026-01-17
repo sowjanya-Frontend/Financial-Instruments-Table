@@ -17,6 +17,9 @@ export interface Column<T> {
  * columns - Column definitions
  * getRowStyle - Optional callback to apply dynamic styles to an entire row
  * getCellStyle - Optional callback to apply dynamic styles to a specific cell
+ * onHeaderClick - Optional callback invoked when a table header is clicked (used for sorting)
+ * sortKey - The currently sorted column key
+ * sortOrder - The current sort direction ("asc" for ascending, "desc" for descending)
  */
 interface TableProps<T> {
   data: T[];
@@ -30,7 +33,6 @@ interface TableProps<T> {
 
 /**
  * Generic Table component
- * Responsible ONLY for rendering table structure
  */
 function Table<T>({
   data,
